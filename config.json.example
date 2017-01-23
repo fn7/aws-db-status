@@ -1,0 +1,22 @@
+{
+	"envStr": "prefix of db endpoint for filtering. no filter applied if '.' is specified",
+
+	"logTargets": [
+		{
+			"sql": "show full processlist",
+			"dbOpt": {"user": "xxxxxxx", "pass": "xxxxxxx"},
+			"fileOpt": {
+				"dir": "./logs",
+				"suffix": "_processlist.log"
+			}
+		},
+		{
+			"sql": "show engine innodb status",
+			"dbOpt": {"user": "xxxxxxx", "pass": "xxxxxxx"},
+			"fileOpt": {
+				"dir": "./logs",
+				"suffix": "_innodbstatus.log"
+			}
+		}
+	]
+}
