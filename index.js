@@ -19,7 +19,9 @@
     process.exit(1);
   }
 
-  var config = require("./" + configJson);
+  var config = fe.readFileSync("./" + configJson, "utf8");
+  config = JSON.parse(config);
+
   if (config == null) {
     console.info("config is not defined");
     process.exit(1);
