@@ -1,0 +1,19 @@
+{
+  "name": "aws-db-status",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.7.24",
+    "bluebird": "^3.4.7",
+    "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
+    "mysql": "^2.12.0",
+    "winston": "~2.3.0"
+  }
+}
