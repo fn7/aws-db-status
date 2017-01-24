@@ -19,7 +19,7 @@
     process.exit(1);
   }
 
-  var config = fe.readFileSync("./" + configJson, "utf8");
+  var config = fs.readFileSync("./" + configJson, "utf8");
   config = JSON.parse(config);
 
   if (config == null) {
