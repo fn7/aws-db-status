@@ -2,6 +2,7 @@
   "use strict";
   // TODO: プロセスに異常があればSlack通知したい
   var winston = require("winston");
+  require("winston-daily-rotate-file");
   var _ = require("lodash");
   var AWS = require("aws-sdk");
   var Promise = require("bluebird");
@@ -85,8 +86,9 @@
       var filename = arg1;
       this.logger = new (winston.Logger)({
         transports: [
-          new (winston.transports.File)({
+          new (winston.transports.DailyRotateFile)({
             filename: filename,
+            datePattern: ".yyyy-MM-dd",
             json: false,
             formatter: function(opt) {
               var d = opt.meta;

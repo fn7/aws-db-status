@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-	"bin": { "aws-db-status": "./index.js" },
+  "bin": {
+    "aws-db-status": "./index.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,6 +17,7 @@
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "mysql": "^2.12.0",
-    "winston": "~2.3.0"
+    "winston": "~2.3.0",
+    "winston-daily-rotate-file": "^1.4.3"
   }
 }
