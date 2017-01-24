@@ -88,6 +88,7 @@
         transports: [
           new (winston.transports.DailyRotateFile)({
             filename: filename,
+            maxFiles: 3, //TODO: 外部設定
             datePattern: ".yyyy-MM-dd",
             json: false,
             formatter: function(opt) {
