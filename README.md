@@ -37,10 +37,12 @@ $ aws-db-status -c config.json
     - File: fileOpt で設定されたディレクトリに保存。日付によるローテーションを行う
 		- S3: S3にuploadする
   - sql: 発行するSQL
-    - dbOpt: ユーザ名, パスワードを指定する
-    - fileOpt: ファイル保存に関する設定
+  - dbOpt: ユーザ名, パスワードを指定する
+    - user: ユーザ名 
+    - pass: パスワード
+  - fileOpt: ファイル保存に関する設定
     - dir： ディレクトリ名
-      - suffix： ファイル名の接尾語
+    - suffix： ファイル名の接尾語
   - s3Opt: S3用の設定
     - prefix： S3バケットの接頭語
 
