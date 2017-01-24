@@ -34,14 +34,14 @@ $ aws-db-status -c config.json
 - envStr: DBのエンドポイントをフィルタリングするための文字列
 - logTargets: ロギングする為の設定(複数記述可能)
   - logger: 保存形式
-	  - File: fileOpt で設定されたディレクトリに保存。日付によるローテーションを行う
+    - File: fileOpt で設定されたディレクトリに保存。日付によるローテーションを行う
 		- S3: S3にuploadする
   - sql: 発行するSQL
-	- dbOpt: ユーザ名, パスワードを指定する
-	- fileOpt: ファイル保存に関する設定
-	  - dir: ディレクトリ名
-		- suffix: ファイル名の接尾語
+    - dbOpt: ユーザ名, パスワードを指定する
+    - fileOpt: ファイル保存に関する設定
+    - dir： ディレクトリ名
+      - suffix： ファイル名の接尾語
   - s3Opt: S3用の設定
-	  - prefix: S3バケットの接頭語
+    - prefix： S3バケットの接頭語
 
 
