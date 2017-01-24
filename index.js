@@ -34,18 +34,27 @@
       var filenameBase = endpoint.Address.split(".")[0];
       _.each(config.logTargets || [], function(logTarget) {
         var sql = logTarget.sql || "select now()";
-        var fileOpt = logTarget.fileOpt || {
-          dir: ".",
-          suffix: ".log"
-        };
-        var filepath = fileOpt.dir + "/" + filenameBase + fileOpt.suffix;
-        console.log("SQL: ", logTarget.sql);
-        console.log("OUTPUT: ", filepath);
         var dsn = _.assign({
           host: endpoint.Address,
           port: endpoint.Port
         }, logTarget.dbOpt || {});
-        (new (DBLogger)(logTarget.sql, filepath, dsn)).log();
+        var type = logTarget.logger;
+        if (type === "File") {
+          var fileOpt = logTarget.fileOpt || {
+            dir: ".",
+            suffix: ".log"
+          };
+          var filepath = fileOpt.dir + "/" + filenameBase + fileOpt.suffix;
+          console.log("SQL: ", logTarget.sql);
+          console.log("OUTPUT: ", filepath);
+          (new (DBLogger.File)(logTarget.sql, filepath, dsn)).log();
+        } else if (type === "S3"){
+          var s3Opt = logTarget.s3Opt || {
+            prefix: "s3Logging"
+          };
+          var bucketName = s3Opt.prefix + "." + filenameBase;
+          (new (DBLogger.S3)(logTarget.sql, bucketName, dsn)).log();
+        }
       });
     });
   });
