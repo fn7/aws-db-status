@@ -32,13 +32,19 @@
     _.each(endpoints, function(endpoint) {
       console.log("TARGET: ", endpoint.Address);
       var filenameBase = endpoint.Address.split(".")[0];
-      _.each(config.logTargets, function(logTarget) {
+      _.each(config.logTargets || [], function(logTarget) {
+        var sql = logTarget.sql || "select now()";
+        var fileOpt = logTarget.fileOpt || {
+          dir: ".",
+          suffix: ".log"
+        };
+        var filepath = fileOpt.dir + "/" + filenameBase + fileOpt.suffix;
         console.log("SQL: ", logTarget.sql);
-        var filepath = logTarget.fileOpt.dir + "/" + filenameBase + logTarget.fileOpt.suffix;
+        console.log("OUTPUT: ", filepath);
         var dsn = _.assign({
           host: endpoint.Address,
           port: endpoint.Port
-        }, logTarget.dbOpt);
+        }, logTarget.dbOpt || {});
         (new (DBLogger)(logTarget.sql, filepath, dsn)).log();
       });
     });
