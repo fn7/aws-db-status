@@ -3,6 +3,7 @@
   'use strict';
   var fs = require("fs");
   var _ = require("lodash");
+  var CronJob = require("cron").CronJob;
   var argv = require("minimist")(process.argv.slice(2));
 
   var dbEndpoints = require("./src/dbEndpoints");
@@ -27,26 +28,24 @@
     process.exit(1);
   }
 
-  console.log("ENV_STR: ", config.envStr);
-  dbEndpoints(config.envStr).then(function(endpoints) {
-    _.each(endpoints, function(endpoint) {
-      console.log("TARGET: ", endpoint.Address);
-      var filenameBase = endpoint.Address.split(".")[0];
-      _.each(config.logTargets || [], function(logTarget) {
-        var sql = logTarget.sql || "select now()";
+  var executeLogging = function(envStr, logTarget) {
+    console.log("logging start");
+    dbEndpoints(envStr).then(function(endpoints) {
+      var sql = logTarget.sql || "select now()";
+      console.log("SQL: ", logTarget.sql);
+      var type = logTarget.logger;
+      _.each(endpoints, function(endpoint) {
+        var filenameBase = endpoint.Address.split(".")[0];
         var dsn = _.assign({
           host: endpoint.Address,
           port: endpoint.Port
         }, logTarget.dbOpt || {});
-        var type = logTarget.logger;
         if (type === "File") {
           var fileOpt = logTarget.fileOpt || {
             dir: ".",
             suffix: ".log"
           };
           var filepath = fileOpt.dir + "/" + filenameBase + fileOpt.suffix;
-          console.log("SQL: ", logTarget.sql);
-          console.log("OUTPUT: ", filepath);
           (new (DBLogger.File)(logTarget.sql, filepath, dsn)).log();
         } else if (type === "S3"){
           var s3Opt = logTarget.s3Opt || {
@@ -57,5 +56,16 @@
         }
       });
     });
+  };
+  _.each(config.logTargets || [], function(logTarget) {
+    var cronSetting = logTarget.cronSetting;
+    try {
+      var cronProcess = executeLogging.bind(null, config.envStr, logTarget);
+      var startJobRightNow = true;
+      new CronJob(cronSetting, cronProcess, startJobRightNow, "Asia/Tokyo");
+    } catch(e) {
+      console.log(e);
+      process.exit(1);
+    }
   });
 })();
