@@ -4,7 +4,8 @@
   "description": "hogehoge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint src/**/*/*.js"
   },
   "bin": {
     "aws-db-status": "./index.js"
@@ -20,5 +21,8 @@
     "mysql": "^2.12.0",
     "winston": "~2.3.0",
     "winston-daily-rotate-file": "^1.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.14.1"
   }
 }

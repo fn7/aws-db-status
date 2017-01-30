@@ -1,7 +1,6 @@
 (function() {
-  'use strict';
+  "use strict";
   var mysql = require("mysql");
-  var _ = require("lodash");
   var Logger = require("./Logger");
 
   var BaseLogger = function(sql, dsn, logger) {
@@ -37,7 +36,7 @@
   var callDelegateMethod = function(methodName) {
     return function() {
       this.delegate[methodName].apply(this.delegate, arguments);
-    }
+    };
   };
 
 
@@ -58,5 +57,5 @@
   module.exports = {
     File: FileLogger,
     S3: S3Logger,
-  }
+  };
 })();
