@@ -45,10 +45,12 @@
       return hasBucket({
         Bucket: bucketName
       }).then(
-        function() { console.log("Bucket Found: ", bucketName); /* noop */ },
         function() {
-          console.log("Bucket Not Found: ", bucketName);
-          console.log(err);
+          //console.log("Bucket Found: ", bucketName); /* noop */
+        },
+        function() {
+          //console.log("Bucket Not Found: ", bucketName);
+          //console.log(err);
           process.exit(1);
           return createBucket({
             Bucket: bucketName,
@@ -56,8 +58,8 @@
               LocationConstraint: "ap-northeast-1"
             }
           }).catch(function(err) {
-            console.log("Create failed: ", bucketName);
-            console.log(err);
+            //console.log("Create failed: ", bucketName);
+            //console.log(err);
             process.exit(1);
           }).then(function(err) {
             console.log("Bucket Created: ", bucketName);
@@ -76,7 +78,7 @@
 
     var param = this.param;
     createBucketIfNotExists(param.bucket).then(function() {
-      console.log("Save: ", param.bucket);
+      //console.log("Save: ", param.bucket);
       return upload(param.bucket, text);
     })
   };

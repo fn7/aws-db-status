@@ -18,21 +18,23 @@ $ aws-db-status -c config.json
 
 ```:config.json
 {
-	"envStr": "hogehoge",
-	"logTargets": [
-		"logger": "File",
-		"sql": "show full processlist",
-		"dbOpt": {"user": "hoge", "pass": "fugafuga"},
-		"fileOpt": {
-			"dir": "./logs",
-			"suffix": ".log"
-		}
-	]
+  "envStr": "hogehoge",
+  "logTargets": [
+    "cronSetting": "00 * * * * *",
+    "logger": "File",
+    "sql": "show full processlist",
+    "dbOpt": {"user": "hoge", "pass": "fugafuga"},
+    "fileOpt": {
+      "dir": "./logs",
+      "suffix": ".log"
+    }
+  ]
 }
 ```
 
 - envStr: DBのエンドポイントをフィルタリングするための文字列
 - logTargets: ロギングする為の設定(複数記述可能)
+  - cronSetting: cron書式で指定する実行間隔
   - logger: 保存形式
      - File: fileOpt で設定されたディレクトリに保存。日付によるローテーションを行う
      - S3: S3にuploadする
