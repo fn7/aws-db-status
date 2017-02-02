@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 (function() {
-  'use strict';
+  "use strict";
+  var process = global.process;
+  var console = global.console;
   var fs = require("fs");
   var _ = require("lodash");
   var CronJob = require("cron").CronJob;
@@ -31,7 +33,6 @@
   var executeLogging = function(envStr, logTarget) {
     console.log("logging start");
     dbEndpoints(envStr).then(function(endpoints) {
-      var sql = logTarget.sql || "select now()";
       console.log("SQL: ", logTarget.sql);
       var type = logTarget.logger;
       _.each(endpoints, function(endpoint) {
