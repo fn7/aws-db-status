@@ -5,7 +5,7 @@ module.exports = function(keyStr) {
   var Promise = require("bluebird");
   var rds = new AWS.RDS({region: "ap-northeast-1"}); // 動的にならないの?
 
-  var keyRegExp = new RegExp('^' + (keyStr || ''));
+  var keyRegExp = new RegExp("^" + (keyStr || ""));
 
   return Promise.promisify(rds.describeDBInstances.bind(rds))({}).then(function(result) {
     return _(result.DBInstances).filter(function(dbInstance) {
@@ -16,4 +16,4 @@ module.exports = function(keyStr) {
       return dbInstance.Endpoint;
     }).value();
   });
-}
+};
