@@ -19,7 +19,7 @@ $ aws-db-status -c config.json
 ```:config.json
 {
   "envStr": "hogehoge",
-  "logTargets": [
+  "logTargets": {
     "cronSetting": "00 * * * * *",
     "logger": "File",
     "sql": "show full processlist",
